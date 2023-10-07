@@ -5,8 +5,8 @@ import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import jsonwebtoken from 'jsonwebtoken'
 import dotenv from "dotenv"
-import authrouter from "./controllers/auth.js"
-import showrouter from "./controllers/show.js"
+import authrouter from "./src/controllers/auth.js"
+import showrouter from "./src/controllers/show.js"
 
 
 

@@ -7,5 +7,5 @@
         "sourceMap": true,
         "noImplicitAny": true
     },
-    "include": ["src/**/*", "utilss/isloggedin.ts"]
+    "include": ["src/**/*", "utilss/isloggedin.ts", "server.ts"]
 }

@@ -7,7 +7,7 @@
   "scripts": {
     "init": "tsc --init",
     "compile": "tsc",
-    "start": "node dist/server.js",
+    "start": " ts-node server.ts",
     "tsdev": "tsc --watch ",
     "dev": "node --watch dist/src/server.js",
     "seed": "node dist/db/seed.js"
