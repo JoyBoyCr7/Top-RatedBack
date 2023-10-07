@@ -1,14 +1,26 @@
 import mongoose from "../db/connection.js";
 
+
+// interface Ishow {
+//     showName: String
+//     yearWatched: String
+//     showImage : String
+//     intrestLevel : Number
+//     wouldRecommend: Boolean
+//     Description : String
+//     userName : String
+//   }
+  
+
 const showSchema = new mongoose.Schema({
-    showName: String,
+    showName: String, 
     yearWatched: String,
-    showImage : String,
+    showImage : String, 
     intrestLevel : Number,
     wouldRecommend: Boolean,
-    Description : String,
+    Description : String, 
     userName : String
-}, {timestamps : true})
+})
 
 const show = mongoose.model("Show", showSchema)
 

@@ -5,6 +5,7 @@ import cors from "cors"
 import cookieParser from 'cookie-parser'
 import jsonwebtoken from 'jsonwebtoken'
 import dotenv from "dotenv"
+import authrouter from "./controllers/auth.js"
 
 dotenv.config()
 // connection
@@ -25,9 +26,12 @@ app.use(cors())
 app.use(morgan("dev"))
 app.use(express.json())
 app.use(cookieParser())
+
+
 app.get('/', (req: Request, res: Response)=>{
     res.json({man:"Damn"})
 })
+app.use("/auth", authrouter)
 
 const port = process.env.PORT
 app.listen(port, ()=> console.log(`live on port ${port}`))

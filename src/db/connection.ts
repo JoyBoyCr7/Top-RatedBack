@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-import mongoose from 'mongoose'
+import mongoose from 'mongoose' 
 
 dotenv.config()
 
@@ -8,7 +8,7 @@ mongoose.connect(DATABASE_URL)
 
 mongoose.connection
     .on('open', () => console.log('Connected to mongo'))
-    .on('close', () => console.log('Disconnected from Mongo'))
+    .on('close', () => console.log('Disconnected from Mongoose'))
     .on('error', (error) => console.log(error));
 
 export default mongoose
