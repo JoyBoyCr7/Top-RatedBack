@@ -1,19 +1,16 @@
 import mongoose from "../db/connection.js";
 
+const {Schema, model} = mongoose
+// showName: String, 
+// yearWatched: String,
+// showImage : String, 
+// intrestLevel : Number,
+// wouldRecommend: Boolean,
+// Description : String, 
+// userName : String
 
-// interface Ishow {
-//     showName: String
-//     yearWatched: String
-//     showImage : String
-//     intrestLevel : Number
-//     wouldRecommend: Boolean
-//     Description : String
-//     userName : String
-//   }
-  
-
-const showSchema = new mongoose.Schema({
-    showName: String, 
+const showSchema = new Schema({
+    showName: String,  
     yearWatched: String,
     showImage : String, 
     intrestLevel : Number,
@@ -22,6 +19,6 @@ const showSchema = new mongoose.Schema({
     userName : String
 })
 
-const show = mongoose.model("Show", showSchema)
+const Show = model("Show", showSchema)
 
-export default show
+export default Show

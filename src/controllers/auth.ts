@@ -22,10 +22,6 @@ router.post("/signup", async (req, res) => {
     }
 })
 
-interface boddy{
-    userName: string,
-    password: string
-}
 
 router.post("/login", async (req, res) => {
     try{
