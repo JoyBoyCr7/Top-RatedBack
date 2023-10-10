@@ -16,7 +16,7 @@ const DATABASE_URL = process.env.DATABASE_URL;
 // .on('error', (error) => console.log(error));
 // middleware
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://top-rated-front.vercel.app",
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
