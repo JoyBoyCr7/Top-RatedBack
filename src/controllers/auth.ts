@@ -41,8 +41,9 @@ router.post("/login", async (req, res) => {
         res.cookie("token", token, {
           httpOnly: true,
           path: "/",
-          secure: true,
-          sameSite: "none", // "strict" | "lax" | "none" (secure must be true)
+          domain: "localhost",
+          secure: false,
+          sameSite: "lax", // "strict" | "lax" | "none" (secure must be true)
           maxAge: 3600000, 
         });
         res.json(user);
