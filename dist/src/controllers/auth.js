@@ -34,13 +34,25 @@ router.post("/login", async (req, res) => {
             throw new Error("Password does not match");
         }
         const token = jwt.sign({ userName: user.userName }, process.env.SECRET);
-        res.cookie("token", token, {
-            httpOnly: true,
-            path: "/",
-            secure: true,
-            sameSite: "none",
-            maxAge: 3600000,
-        });
+        if (process.env.ENVIRONMENT === "production") {
+            res.cookie("token", token, {
+                httpOnly: true,
+                path: "/",
+                secure: true,
+                sameSite: "none",
+                maxAge: 3600000,
+            });
+        }
+        if (process.env.ENVIRONMENT === "dev") {
+            res.cookie("token", token, {
+                httpOnly: true,
+                path: "/",
+                domain: "localhost",
+                secure: false,
+                sameSite: "lax",
+                maxAge: 3600000,
+            });
+        }
         res.json(user);
     }
     catch (error) {
