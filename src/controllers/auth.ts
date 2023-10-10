@@ -5,17 +5,18 @@ import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 
 dotenv.config()
-interface IUser {
-    userName?: string;
-    password?: string;
-  }
+// interface IUser {
+//     userName?: string;
+//     password?: string;
+//   }
 
 const router = express.Router()
+
 router.post("/signup", async (req, res) => {
     try{
-
-    req.body.password = await bcrypt.hash(req.body.password, await bcrypt.genSalt(10))
-    const user = await User.create(req.body)
+    let {userName, password} = req.body
+    req.body.password = await bcrypt.hash(password, await bcrypt.genSalt(10))
+    const user = await User.create({userName, password})
     res.json(user)
     } catch(error){
         res.status(400).json(({error}))
@@ -24,29 +25,59 @@ router.post("/signup", async (req, res) => {
 
 
 router.post("/login", async (req, res) => {
-    try{
-    const {userName, password} = req.body
-    const user = await User.findOne({userName})
-    if (user){
-        const passwordcheck = await bcrypt.compare(password, user.password)
-        if (passwordcheck){
-            const payload = {userName}
-            const token = await jwt.sign(payload, process.env.SECRET)
-            res.cookie("token", token, {httpOnly: true}).json({payload, status: "logged in"})
-        } else {
-            res.status(400).json(({error:"Password does not match"}))
+    try {
+        const { userName, password } = req.body;
+        const user = await User.findOne({ userName });
+        console.log(user)
+        if (!user) {
+          throw new Error("No user found");
         }
-    } else {
-        res.status(400).json(({error:"error user does not exist"}))
-    } 
-    } catch(error){
-        res.status(400).json(({error}));
-    }
+        console.log(password, user)
+        const passwordCheck = await bcrypt.compare(password, user.password);
+        if (!passwordCheck) {
+          throw new Error("Password does not match");
+        }
+        const token = jwt.sign({ userName: user.userName }, process.env.SECRET);
+        res.cookie("token", token, {
+          httpOnly: true,
+          path: "/",
+          domain: "localhost",
+          secure: false,
+          sameSite: "lax", // "strict" | "lax" | "none" (secure must be true)
+          maxAge: 3600000, 
+        });
+        res.json(user);
+      } catch (error) {
+        res.status(400).json({ error: error.message });
+      }
+    // try {
+    //     const {userName, password} = req.body
+    //     const user = await User.findOne({userName})
+    //     if (!user.userName){
+    //         throw new Error("No user with username found")
+    //     }
+    //     const passwordCheck = await bcrypt.compare(password, user.password)
+    //     if (!passwordCheck){
+    //         throw new Error("Password does not match")
+    //     }
+    //     const token = jwt.sign({userName: user.userName}, process.env.SECRET)
+    //     res.cookie("token",token)
+    //     res.json(user)
+    // } catch(error){
+    //     console.log(error)
+    //     res.status(400).json({error: error.message})
+    // }
 });
-
-router.post("/logout", (req, res) => {
+console
+router.get("/logout", (req, res) => {
     res.clearCookie("token").json({response:"You are logged out"});
 })
+
+// get /cookietest to test our cookie
+router.get("/cookietest", (req, res) => {
+    res.json(req.cookies);
+  })
+  
 
 export default router
 

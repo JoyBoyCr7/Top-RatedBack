@@ -3,8 +3,8 @@ import { Document } from "mongoose";
 const {Schema, model} = mongoose
 
 interface UserDocument extends Document{
-    userName?: string;
-    password?: string;
+    userName: string;
+    password: string;
     // Other properties...
   }
 const userSchema = new Schema({
