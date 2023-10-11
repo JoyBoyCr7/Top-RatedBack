@@ -6,7 +6,6 @@ const router = express.Router()
 
 
 
-
 router.get("/",isLoggedIn, async (req,res) => {
     try {
         const userName = req.payload.userName
@@ -30,6 +29,7 @@ router.get("/:id",isLoggedIn, async (req,res) => {
 router.post("/",isLoggedIn, async (req,res) => {
     try {
         req.body.userName = req.payload.userName;
+        console.log(req.body)
         const show = await Show.create(req.body);
         console.log(show)
         res.json(show);

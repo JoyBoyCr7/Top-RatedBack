@@ -11,7 +11,7 @@ const showSchema = new Schema({
     showName: String,
     yearWatched: String,
     showImage: String,
-    intrestLevel: Number,
+    rating: Number,
     wouldRecommend: Boolean,
     description: String,
     userName: String
