@@ -13,7 +13,7 @@ const showSchema = new Schema({
     showImage: String,
     intrestLevel: Number,
     wouldRecommend: Boolean,
-    Description: String,
+    description: String,
     userName: String
 });
 const Show = model("Show", showSchema);
