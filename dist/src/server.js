@@ -15,7 +15,20 @@ const DATABASE_URL = process.env.DATABASE_URL;
 // .on('close', () => console.log('Disconnected from Mongoose'))
 // .on('error', (error) => console.log(error));
 // middleware
-app.use(cors());
+console.log(" Running");
+if (process.env.ENVIRONMENT === "production") {
+    app.use(cors({
+        origin: "https://top-rated-front.vercel.app",
+        credentials: true,
+    }));
+}
+if (process.env.ENVIRONMENT === "dev") {
+    console.log("dev");
+    app.use(cors({
+        origin: "http://localhost:5173",
+        credentials: true,
+    }));
+}
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
